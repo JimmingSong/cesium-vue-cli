@@ -26,7 +26,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: resolve(__dirname, '../client')
+                include: resolve(__dirname, '../client'),
+                options: {
+                    plugins: ["babel-plugin-transform-remove-console"]
+                }
             },
             {
                 test: /\.vue$/,

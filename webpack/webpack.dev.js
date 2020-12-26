@@ -28,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: 'babel-loader?cacheDirectory',
                 include: resolve(__dirname, '../client')
             },
             {

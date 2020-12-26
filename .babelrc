@@ -1,4 +1,4 @@
 {
   "presets": ["@babel/preset-env"],
-  "plugins": ["transform-vue-jsx", "@babel/plugin-transform-runtime", "transform-remove-console"]
+  "plugins": ["transform-vue-jsx", "@babel/plugin-transform-runtime"]
 }

@@ -1,17 +1,19 @@
-import SensorSource from './source/SensorSource';
-import CreateEntity from './createEntity';
-const {Color, Cartesian3} = Cesium;
-class CesiumClass extends CreateEntity {
+import {token} from './cesiumConfig';
+import CreateEntity from "./createEntity";
+import SourceManager from './source';
+const {Color, Cartesian3, Camera} = Cesium;
+class CesiumClass {
     constructor() {
-        super();
+        Cesium.Ion.defaultAccessToken = token;
+        Camera.DEFAULT_VIEW_RECTANGLE = new Cesium.Rectangle.fromDegrees(89.5, 20.4, 110.4, 61.2); // 修改默认相机视角
         this.Color = Color;
         this.Cartesian3 = Cartesian3;
     }
     init (box) {
         if (window.viewer) return;
-        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5MWY1YWUwZi1kYzM2LTQ4OTAtYjVlNC1jOTdlYzU4MzI4YTAiLCJpZCI6MTc2MjAsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NzI0ODk5OTF9.nbVuTfapqu2h2qrhmnVy8BNrulpb2nOneRPr7u3M0Js';
         let viewer = new Cesium.Viewer(box);
-        this.sensor = new SensorSource(viewer);
+        this.source = new SourceManager(viewer);
+        this.entity = new CreateEntity(viewer, this.source);
         this.viewer = viewer;
         window.viewer = viewer;
     }

@@ -10,7 +10,6 @@
     "test": "cross-env NODE_ENV=test node ./server/app.js"
   },
   "dependencies": {
-    "cesium": "^1.76.0",
     "colors": "^1.4.0",
     "cross-env": "^7.0.3",
     "element-ui": "^2.14.1",
