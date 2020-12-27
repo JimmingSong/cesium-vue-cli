@@ -3,3 +3,11 @@ export let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5MWY1YWUwZi1
 export let pointConfig = {
     pixelSize: 3
 };
+
+export let viewerConfig = {
+    animation: false,
+    homeButton: false,
+    geocoder: false,
+    // skyBox: false
+    // sceneMode: Cesium.SceneMode.SCENE2D
+};

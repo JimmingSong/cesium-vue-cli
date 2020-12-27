@@ -15,8 +15,7 @@ export default {
     name: "home",
     methods: {
         removeEntity () {
-            let entity = cesium.entity.getEntity(11, 'satellite');
-            entity.remove();
+            cesium.entity.removeAll();
         }
     },
     mounted() {
@@ -37,8 +36,17 @@ export default {
         // let entity = cesium.sensor.addSensor(option);
         // console.log(entity);
         // cesium.viewer.selectedEntity = entity;
-        let pos = cesium.Cartesian3.fromDegrees(-82, 38, 1000);
-        cesium.entity.createPoint(11, pos, 'satellite');
+
+        let numBillboards = 10;
+        let id = 1;
+        let id1 = 2;
+        for (let i = 0; i < numBillboards; ++i) {
+            let pos = cesium.Cartesian3.fromDegrees(120, 38, 1000);
+            let pos1 = cesium.Cartesian3.fromDegrees(116, 30, 1000);
+            cesium.entity.createPoint(`${id}-${i}`, pos, {label: {text: 'Label' + i, show: true}});
+            cesium.entity.createPoint(`${id1}-${i}`, pos1, {label: {text: 'Label' + i, show: true}});
+        }
+        cesium.event.burstClick();
     }
 };
 </script>

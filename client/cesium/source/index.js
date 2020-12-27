@@ -1,14 +1,9 @@
-import ca from "element-ui/src/locale/lang/ca";
-
 export default class SourceCollection {
     constructor (viewer) {
         this.viewer = viewer;
         this.entitySourceCache = {};
         this.primitiveSourceCache = {};
         this.czmlSourceCache = {};
-    }
-    defineType (type) {
-        return type ? type : 'default';
     }
 
     entitySource (sourceName) {
@@ -27,16 +22,42 @@ export default class SourceCollection {
      *
      * @param sourceName
      * @param type {String} entity|primitive|czml
-     * @returns {module:cesium.CustomDataSource}
      */
     createSource (sourceName, type) {
-        type = this.defineType(type);
+        if (!type) {
+            return this.viewer;
+        }
         return this[`${type}Source`](sourceName);
+    }
+    removeEntitySourceEntity () {
+        Object.keys(this.entitySourceCache).forEach(item => {
+            this.entitySourceCache[item].entities.removeAll();
+        });
+    }
+    removeCzmlSourceEntity () {
+        Object.keys(this.czmlSourceCache).forEach(item => {
+            this.czmlSourceCache[item].entities.removeAll();
+        });
+    }
+    removePrimitiveSourceEntity () {
+        Object.keys(this.primitiveSourceCache).forEach(item => {
+            this.primitiveSourceCache[item].entities.removeAll();
+        });
+    }
+    removeAllEntity () {
+        this.removeEntitySourceEntity();
+        this.removeCzmlSourceEntity();
+        this.removePrimitiveSourceEntity();
+        this.viewer.entities.removeAll();
     }
     removeSource (sourceName, type) {
 
     }
+    clearSource () {}
     getSource (sourceName, type) {
-        return this[`${this.defineType(type)}SourceCache`][sourceName];
+        if (!type) {
+            return this.viewer;
+        }
+        return this[`${type}SourceCache`][sourceName];
     }
 }

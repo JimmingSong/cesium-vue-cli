@@ -1,7 +1,8 @@
-import {token} from './cesiumConfig';
+import {token, viewerConfig} from './cesiumConfig';
 import CreateEntity from "./createEntity";
 import SourceManager from './source';
-const {Color, Cartesian3, Camera} = Cesium;
+import EventBind from './eventBind';
+const {Viewer, Color, Cartesian3, Camera} = Cesium;
 class CesiumClass {
     constructor() {
         Cesium.Ion.defaultAccessToken = token;
@@ -9,11 +10,12 @@ class CesiumClass {
         this.Color = Color;
         this.Cartesian3 = Cartesian3;
     }
-    init (box) {
+    init (box, config = viewerConfig) {
         if (window.viewer) return;
-        let viewer = new Cesium.Viewer(box);
+        let viewer = new Viewer(box, config);
         this.source = new SourceManager(viewer);
         this.entity = new CreateEntity(viewer, this.source);
+        this.event = new EventBind(viewer);
         this.viewer = viewer;
         window.viewer = viewer;
     }
